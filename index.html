@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Counter</title>
+    <title>Mobile-Friendly Counter</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&display=swap');
         body {
@@ -20,17 +20,26 @@
         }
         button {
             padding: 10px 20px;
-            margin-top: 10px;
-            font-size: 16px;
+            margin: 10px;
+            font-size: 18px;
             cursor: pointer;
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e67300; /* Slightly darker orange on hover */
         }
     </style>
 </head>
 <body>
-    <h1>Online Counter</h1>
-    <p>Press the Space Bar to Increase, Enter to Decrease</p>
+    <h1>Mobile-Friendly Counter</h1>
+    <p>Press the + Button to Increase, - Button to Decrease, or use Space/Enter keys</p>
     <div id="counterDisplay">0</div>
-    <button id="resetButton">Reset Counter</button>
+    <button id="increaseButton">+</button>
+    <button id="decreaseButton">-</button>
+    <button id="resetButton">Reset</button>
     
     <script>
         // Load the counter value from local storage or initialize it to 0
@@ -45,21 +54,35 @@
         // Display the initial value
         updateDisplay();
 
-        // Listen for keydown events
+        // Keyboard functionality for Space and Enter keys
         document.addEventListener('keydown', (event) => {
             if (event.code === 'Space') { // Space bar increases counter
-                event.preventDefault(); // Prevent page scrolling when pressing space
+                event.preventDefault();
                 counter++;
             } else if (event.code === 'Enter') { // Enter decreases counter
                 counter--;
             }
-            // Save the updated counter value to local storage
             localStorage.setItem('counter', counter);
-            // Update the display
             updateDisplay();
         });
 
-        // Add functionality for the reset button
+        // Mobile-friendly functionality (+ button)
+        const increaseButton = document.getElementById('increaseButton');
+        increaseButton.addEventListener('click', () => {
+            counter++;
+            localStorage.setItem('counter', counter);
+            updateDisplay();
+        });
+
+        // Mobile-friendly functionality (- button)
+        const decreaseButton = document.getElementById('decreaseButton');
+        decreaseButton.addEventListener('click', () => {
+            counter--;
+            localStorage.setItem('counter', counter);
+            updateDisplay();
+        });
+
+        // Reset functionality
         const resetButton = document.getElementById('resetButton');
         resetButton.addEventListener('click', () => {
             counter = 0;
