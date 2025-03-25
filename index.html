@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Counter</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&display=swap');
+        body {
+            text-align: center;
+            font-family: 'Ubuntu', sans-serif; /* Applying Ubuntu font */
+            margin-top: 50px;
+            background-color: #f9f9f9; /* Light background for better contrast */
+        }
+        #counterDisplay {
+            font-size: 5em; /* Increased font size for the counter */
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Online Counter</h1>
+    <p>Press the Space Bar to Increase, Enter to Decrease</p>
+    <div id="counterDisplay">0</div>
+    <button id="resetButton">Reset Counter</button>
+    
+    <script>
+        // Load the counter value from local storage or initialize it to 0
+        let counter = parseInt(localStorage.getItem('counter')) || 0;
+        const counterDisplay = document.getElementById('counterDisplay');
+        
+        // Update the display
+        function updateDisplay() {
+            counterDisplay.textContent = counter;
+        }
+
+        // Display the initial value
+        updateDisplay();
+
+        // Listen for keydown events
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') { // Space bar increases counter
+                event.preventDefault(); // Prevent page scrolling when pressing space
+                counter++;
+            } else if (event.code === 'Enter') { // Enter decreases counter
+                counter--;
+            }
+            // Save the updated counter value to local storage
+            localStorage.setItem('counter', counter);
+            // Update the display
+            updateDisplay();
+        });
+
+        // Add functionality for the reset button
+        const resetButton = document.getElementById('resetButton');
+        resetButton.addEventListener('click', () => {
+            counter = 0;
+            localStorage.setItem('counter', counter);
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>
